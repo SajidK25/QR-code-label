@@ -10,7 +10,7 @@
     <div class="container">
         <h1>Easmed QR Code Label</h1>
 
-        <form id="barcode-form" action="http://localhost:8080/lmt/" method="POST">
+        <form id="barcode-form" action="{{ url_for('lmt') }}" method="POST">
             <div class="input-group">
                 <label for="manufacturer">Select Manufacturer:</label>
                 <select id="manufacturer" name="manufacturer" required>
