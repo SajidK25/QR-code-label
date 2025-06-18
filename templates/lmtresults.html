@@ -2,21 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Label Result</title>
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <title>Label Generated</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 696px;
+            height: 271px;
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+        .label-container {
+            width: 696px;
+            height: 271px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .label-container h1 {
+            font-size: 16px;
+            margin: 5px 0;
+            color: #333;
+        }
+        .label-container p {
+            font-size: 12px;
+            margin: 3px 0;
+        }
+        .qr-codes {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 10px 0;
+        }
+        .qr-codes img {
+            width: 80px;
+            height: 80px;
+        }
+        .generate-button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .generate-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Label Generated</h1>
-        <p><strong>Product Name:</strong> {{ product_name }}</p>
-        <p><strong>SKU:</strong> {{ product_sku }}</p>
-        <p><strong>Serial No:</strong> {{ serialno }}</p>
+    <div class="label-container">
+        <h1>{{ product_name }}</h1>
+        <p>SKU: {{ product_sku }}</p>
+        <p>Serial No: {{ serialno }}</p>
         <div class="qr-codes">
             <img src="{{ sku_url }}" alt="SKU QR Code">
-            <img src="{{ serialno_url }}" alt="Serial No QR Code">
+            <img src="{{ serialno_url }}" alt="Serial QR Code">
         </div>
-        <a href="/" class="btn">Generate Another Label</a>
+        <a href="{{ url_for('index') }}" class="generate-button">Generate Another Label</a>
     </div>
 </body>
 </html>

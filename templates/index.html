@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Easmed QR Code</title>
-    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css', _external=True) }}">
 </head>
 <body>
     <div class="container">
         <h1>Easmed QR Code Label</h1>
 
-        <form id="barcode-form" action="https://easmed-qr-label.onrender.com/lmt/" method="POST">
+        <form id="barcode-form" action="http://localhost:8080/lmt/" method="POST">
             <div class="input-group">
                 <label for="manufacturer">Select Manufacturer:</label>
                 <select id="manufacturer" name="manufacturer" required>

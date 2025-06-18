@@ -42,7 +42,6 @@ def lmt():
 
         # Load Excel database
         df = pd.read_excel(EXCEL_DB_PATH)
-        df = pd.read_excel(EXCEL_DB_PATH)
         df['RESMED GTIN'] = pd.to_numeric(df['RESMED GTIN'], errors='coerce')
         df.dropna(subset=['RESMED GTIN'], inplace=True)
         df['RESMED GTIN'] = df['RESMED GTIN'].astype(int)
@@ -71,47 +70,59 @@ def lmt():
         generate_qr_code(product_sku, sku_path)
         generate_qr_code(tracking_value, serial_path)
 
+        # Debug: Verify QR code files exist
+        if not os.path.exists(sku_path):
+            raise ValueError(f"SKU QR code not found at {sku_path}")
+        if not os.path.exists(serial_path):
+            raise ValueError(f"Serial QR code not found at {serial_path}")
+
         # Render the label image
         template_string = render_template(
             'lmtresults.html',
             product_name=product_name,
             product_sku=product_sku,
             serialno=tracking_value,
-            sku_url=f'/static/sku/{product_sku}.png',
-            serialno_url=f'/static/serialno/{tracking_value}.png'
+            sku_url=f'file://{sku_path}',
+            serialno_url=f'file://{serial_path}'
         )
+        print("Rendered template:\n", template_string)
 
         label_path = os.path.join(LABEL_DIR, f"{barcode}.png")
         imgkit.from_string(template_string, label_path, options={
             "enable-local-file-access": "",
-            "crop-h": "696",
-            "crop-w": "271"
+            "--width": "696",
+            "--height": "271",
+            "--zoom": "1.0",
+            "--format": "png",
+            "--quiet": ""
         })
 
-        # Print label (optional, can be commented out if not needed)
-        backend = 'pyusb'
-        model = 'QL-800'
-        printer = 'usb://0x04f9:0x209b'
-        qlr = BrotherQLRaster(model)
-        qlr.exception_on_warning = True
+        # Printer code commented out (no printer connected)
+        # backend = 'pyusb'
+        # model = 'QL-800'
+        # printer = 'usb://0x04f9:0x209b'
+        # qlr = BrotherQLRaster(model)
+        # qlr.exception_on_warning = True
 
-        instructions = convert(
-            qlr=qlr,
-            images=[label_path],
-            label='62x29',
-            rotate='90',
-            threshold=70.0,
-            dither=False,
-            compress=False,
-            red=False,
-            dpi_600=False,
-            hq=True,
-            cut=True
-        )
+        # instructions = convert(
+        #     qlr=qlr,
+        #     images=[label_path],
+        #     label='62x29',
+        #     rotate='0',
+        #     threshold=70.0,
+        #     dither=False,
+        #     compress=False,
+        #     red=False,
+        #     dpi_600=False,
+        #     hq=True,
+        #     cut=True
+        # )
 
-        send(instructions=instructions, printer_identifier=printer, backend_identifier=backend, blocking=True)
+        # send(instructions=instructions, printer_identifier=printer, backend_identifier=backend, blocking=True)
+        
 
-        return render_template('lmtresults.html', product_name=product_name, product_sku=product_sku, serialno=tracking_value, sku_url=f'/static/sku/{product_sku}.png', serialno_url=f'/static/serialno/{tracking_value}.png')
+        # Return the rendered template for display
+        return render_template('lmtresults.html', product_name=product_name, product_sku=product_sku, serialno=tracking_value, sku_url=url_for('static', filename=f'sku/{product_sku}.png'), serialno_url=url_for('static', filename=f'serialno/{tracking_value}.png'))
 
     except Exception as e:
         error_message = traceback.format_exc()
@@ -164,6 +175,8 @@ def generate_qr_code(data, output_path):
     qr.make(fit=True)
     img = qr.make_image(fill='black', back_color='white')
     img.save(output_path)
+    print(f"Generated QR code at {output_path}")
+    return img
 
 if __name__ == '__main__':
     app.run(debug=True)
