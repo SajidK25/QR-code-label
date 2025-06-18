@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Label Result</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Label Generated</h1>
+        <p><strong>Product Name:</strong> {{ product_name }}</p>
+        <p><strong>SKU:</strong> {{ product_sku }}</p>
+        <p><strong>Serial No:</strong> {{ serialno }}</p>
+        <div class="qr-codes">
+            <img src="{{ sku_url }}" alt="SKU QR Code">
+            <img src="{{ serialno_url }}" alt="Serial No QR Code">
+        </div>
+        <a href="/" class="btn">Generate Another Label</a>
+    </div>
+</body>
+</html>

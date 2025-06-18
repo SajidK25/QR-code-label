@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Preview QR Code Labels</title>
+    <style>
+        img {
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Preview QR Code Labels</h1>
+
+    <h2>UDI QR Code</h2>
+    <img src="{{ udi_url }}" alt="UDI QR Code" />
+
+    <h2>SKU QR Code</h2>
+    <img src="{{ sku_url }}" alt="SKU QR Code" />
+
+    <h2>Serial Number QR Code</h2>
+    <img src="{{ serialno_url }}" alt="Serial Number QR Code" />
+
+    <br><br>
+    <a href="/">Go Back</a>
+    <form action="/lmt/" method="post">
+        <input type="hidden" name="barcode" value="{{ request.form['barcode'] }}">
+        <button type="submit">Print Label</button>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easmed QR Code</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Easmed QR Code Label</h1>
+
+        <form id="barcode-form" action="https://easmed-qr-label.onrender.com/lmt/" method="POST">
+            <div class="input-group">
+                <label for="manufacturer">Select Manufacturer:</label>
+                <select id="manufacturer" name="manufacturer" required>
+                    <option value="">Select...</option>
+                    <option value="Brand 1">RESMED</option>
+                    <option value="Brand 2">Brand 2</option>
+                    <option value="Brand 3">Brand 3</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="barcode">UDI:</label>
+                <input type="text" id="barcode" name="barcode" placeholder="Scan UDI here" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="brand">Brand:</label>
+                <input type="text" id="brand" name="brand" placeholder="Brand name" >
+            </div>
+
+            <div class="input-group">
+                <label for="sku">SKU:</label>
+                <input type="text" id="sku" name="sku" placeholder="SKU" >
+            </div>
+
+            <div class="input-group">
+                <label for="item-no">Item No:</label>
+                <input type="text" id="item-no" name="item-no" placeholder="Item No" >
+            </div>
+
+            <div class="input-group">
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description" placeholder="Product description" >
+            </div>
+
+            <div class="input-group">
+                <label for="serial">SN/LOT:</label>
+                <input type="text" id="serial" name="serial" placeholder="SN/LOT" >
+            </div>
+
+            <div class="input-group">
+                <label for="quantity">Qty:</label>
+                <input type="number" id="quantity" name="quantity" min="1" value="1" >
+            </div>
+
+            <div class="button-group">
+                <button type="submit">Print</button>
+                <button type="reset" class="clear-btn">Clear</button>
+            </div>
+        </form>
+    </div>
+    <script src="static/js/script.js"></script>
+</body>
+</html>
