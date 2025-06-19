@@ -98,27 +98,27 @@ def lmt():
         })
 
         # Printer code commented out (no printer connected)
-        # backend = 'pyusb'
-        # model = 'QL-800'
-        # printer = 'usb://0x04f9:0x209b'
-        # qlr = BrotherQLRaster(model)
-        # qlr.exception_on_warning = True
+        backend = 'pyusb'
+        model = 'QL-800'
+        printer = 'usb://0x04f9:0x209b'
+        qlr = BrotherQLRaster(model)
+        qlr.exception_on_warning = True
 
-        # instructions = convert(
-        #     qlr=qlr,
-        #     images=[label_path],
-        #     label='62x29',
-        #     rotate='0',
-        #     threshold=70.0,
-        #     dither=False,
-        #     compress=False,
-        #     red=False,
-        #     dpi_600=False,
-        #     hq=True,
-        #     cut=True
-        # )
+        instructions = convert(
+            qlr=qlr,
+            images=[label_path],
+            label='62x29',
+            rotate='0',
+            threshold=70.0,
+            dither=False,
+            compress=False,
+            red=False,
+            dpi_600=False,
+            hq=True,
+            cut=True
+        )
 
-        # send(instructions=instructions, printer_identifier=printer, backend_identifier=backend, blocking=True)
+        send(instructions=instructions, printer_identifier=printer, backend_identifier=backend, blocking=True)
         
 
         # Return the rendered template for display
